@@ -1,0 +1,43 @@
+.image-gallery-icon {
+  width: 10px;
+  height: 10px;
+}
+
+.image-gallery-slide img {
+  border-radius: 15px;
+}
+
+.image-gallery-thumbnail img {
+  border-radius: 15px;
+}
+
+.image-gallery-left-nav {
+  display: none;
+}
+
+.image-gallery-right-nav {
+  display: none;
+}
+
+.image-gallery-play-button,
+.image-gallery-fullscreen-button {
+  width: 30px;
+  height: 30px;
+  background-size: 20px 20px;
+}
+
+.image-gallery-play-button::before,
+.image-gallery-fullscreen-button::before {
+  font-size: 16px;
+}
+
+.image-gallery-play-button {
+  bottom: 30px;
+  left: 5%;
+  transform: translateX(-50%);
+}
+
+.image-gallery-fullscreen-button {
+  bottom: 30px;
+  right: 30px;
+}

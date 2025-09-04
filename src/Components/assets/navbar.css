@@ -1,0 +1,49 @@
+.nav-item {
+  position: relative;
+}
+
+.nav-item::after {
+  content: "";
+  position: absolute;
+  top: 2em;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  background-color: #f67d1c;
+  transition: width 0.3s;
+  cursor: pointer;
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+.cartpopup {
+  position: absolute;
+  top: 10%; /* Position below the cart icon */
+  right: 10%;
+  padding: 10px;
+  border-radius: 5px;
+  width: 20%;
+  margin-top: 5px; /* Optional: add a little space between the icon and the popup */
+}
+
+.cartpopup-content {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  text-align: center;
+}
+
+.close-button {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
