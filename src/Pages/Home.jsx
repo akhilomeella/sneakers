@@ -67,7 +67,7 @@ const Home = () => {
 
           <div className="flex justify-center lg:justify-start ">
             <Link to="/collections" className="">
-              <button className="inline-block bg-orange-500 hover:bg-white hover:text-orange-500 hover:border-2 hover:border-solid hover:border-orange-500 text-white px-8 py-3 text-lg rounded-full transition">
+              <button className="cursor-pointer inline-block bg-orange-500 hover:bg-white hover:text-orange-500 hover:border-2 hover:border-solid hover:border-orange-500 text-white px-8 py-3 text-lg rounded-full transition">
                 Shop Now!
               </button>
             </Link>

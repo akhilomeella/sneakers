@@ -12,7 +12,7 @@ const Item = (props) => {
       <img
         src={props.image}
         alt=""
-        className="w-full h-40 sm:h-48 md:h-56 lg:h-60 object-contain bg-white p-2 rounded-lg"
+        className="w-full h-40 sm:h-48 md:h-56 lg:h-60 object-contain bg-white p-2 rounded-lg cursor-pointer"
         onClick={() => setShowModal(true)}
       />
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-3 text-center sm:text-left">
@@ -22,7 +22,7 @@ const Item = (props) => {
         </div>
       </div>
 
-      <div className="mt-auto  w-full">
+      <div className="mt-auto w-full">
         <Addtocart productId={props.id} size="small" />
       </div>
       {showModal && (
