@@ -22,8 +22,7 @@ const Men = () => {
         </motion.h1>
       </div>
 
-      <hr />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 sm:gap-8 px-6 sm:px-12 md:px-24 lg:px-36">
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 sm:gap-8 px-6 sm:px-12 md:px-24 lg:px-36">
         {items.map((item, i) => {
           if (item.category === "Men") {
             return (
