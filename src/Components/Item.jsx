@@ -12,7 +12,7 @@ const Item = (props) => {
       <img
         src={props.image}
         alt=""
-        className="w-full h-40 sm:h-48 md:h-56 lg:h-60 object-contain bg-white p-2 rounded-lg cursor-pointer"
+        className="w-full h-40 sm:h-48 md:h-56 lg:h-60 object-contain bg-white p-2 rounded-lg cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-lg"
         onClick={() => setShowModal(true)}
       />
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-3 text-center sm:text-left">
