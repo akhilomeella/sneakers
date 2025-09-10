@@ -1,12 +1,24 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
+    axios
+      .post("http://localhost:3000/login", { email, password })
+      .then((result) => {
+        console.log(result);
+        if (result.data === "Success") {
+          navigate("/cart");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
