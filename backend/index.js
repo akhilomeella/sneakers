@@ -14,10 +14,10 @@ app.post("/login", (req, res) => {
   const { email, password } = req.body;
   sneakerModel.findOne({ email: email }).then((user) => {
     if (user) {
-      if (user.password === password) {
+      if (user.password === password && user.email === email) {
         res.json("Success");
       } else {
-        res.json("Incorrect password");
+        res.json("Incorrect password or username");
       }
     } else {
       res.json("Record does not exist");
