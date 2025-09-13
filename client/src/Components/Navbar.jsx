@@ -120,7 +120,7 @@ const Navbar = () => {
               </div>
             </Link>
 
-            <Link to="/login" className="hidden sm:block">
+            <Link to="/orderhistory" className="hidden sm:block">
               <img src={dp} alt="" className="size-10 rounded-full" />
             </Link>
           </div>

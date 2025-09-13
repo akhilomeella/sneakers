@@ -8,6 +8,7 @@ import Cart from "./Pages/Cart";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Account from "./Pages/Account";
+import Orderhistory from "./Pages/Orderhistory";
 import Payment from "./Components/Payment";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
@@ -29,6 +30,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/payment" element={<Payment />} />
+              <Route path="/orderhistory" element={<Orderhistory />} />
 
               <Route path="/contact" element={<Contact />} />
               <Route path="/account" element={<Account />} />

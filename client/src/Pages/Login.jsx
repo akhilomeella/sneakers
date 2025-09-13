@@ -13,7 +13,7 @@ const Login = () => {
     axios
       .post("http://localhost:3000/login", { email, password })
       .then((result) => {
-        console.log(result);
+        alert(result.data);
         if (result.data === "Success") {
           navigate("/cart");
         }
