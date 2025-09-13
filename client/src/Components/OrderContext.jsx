@@ -1,0 +1,37 @@
+import { createContext, useContext, useState, useEffect } from "react";
+
+const OrderContext = createContext();
+
+export const OrderProvider = ({ children }) => {
+  const [orders, setOrders] = useState(() => {
+    const savedOrder = localStorage.getItem("order");
+    return savedOrder ? JSON.parse(savedOrder) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("order", JSON.stringify(orders));
+  }, [orders]);
+
+  // Add a new order
+  const addOrder = (order) => {
+    setOrders((prev) => [...prev, order]);
+  };
+
+  // Update status of an existing order
+  const updateOrderStatus = (orderId, newStatus) => {
+    setOrders((prev) =>
+      prev.map((order) =>
+        order.id === orderId ? { ...order, status: newStatus } : order
+      )
+    );
+  };
+
+  return (
+    <OrderContext.Provider value={{ orders, addOrder, updateOrderStatus }}>
+      {children}
+    </OrderContext.Provider>
+  );
+};
+
+// Hook to use the context
+export const useOrders = () => useContext(OrderContext);
