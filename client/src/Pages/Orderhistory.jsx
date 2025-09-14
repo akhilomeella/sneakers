@@ -7,9 +7,9 @@ const Orderhistory = () => {
   const [filterStatus, setFilterStatus] = useState("All");
 
   const filteredOrders = orders.filter((order) => {
-    const matchesSearch =
-      order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.vendor.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = order.id
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
     const matchesStatus =
       filterStatus === "All" || order.status === filterStatus;
     return matchesSearch && matchesStatus;
@@ -40,7 +40,7 @@ const Orderhistory = () => {
                   onChange={(e) => setFilterStatus(e.target.value)}
                 >
                   <option value="All">All</option>
-                  <option value="Delivered">Delivered</option>
+                  <option value="Successful">Successful</option>
                   <option value="Pending">Pending</option>
                   <option value="Cancelled">Cancelled</option>
                 </select>
@@ -93,7 +93,7 @@ const Orderhistory = () => {
                         <td className="border-b text-xs md:text-[13px] sm:text-base border-gray-300 px-2 sm:px-4 py-2 sm:py-3">
                           <span
                             className={`inline-block px-1 sm:px-2 py-1 text-sm font-extralight sm:font-semibold rounded max-[320px]:text-[10px] ${
-                              order.status === "Delivered"
+                              order.status === "Successful"
                                 ? "bg-green-40 text-xs md:text-[13px] sm:text-base text-green-400 outline"
                                 : order.status === "Pending"
                                 ? "bg-yellow-40 text-xs md:text-[13px] sm:text-base text-orange-300 outline"

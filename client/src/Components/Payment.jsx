@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../Components/CartContext";
-import { useOrders } from "../Components/OrderContext"; // new context for orders
+import { useOrders } from "../Components/OrderContext";
 
 const Payment = () => {
   const publicKey = "pk_test_6e62a658683ffa09f2e2b90b0634febac2ec8f0b";
@@ -11,6 +12,7 @@ const Payment = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+  const navigate = useNavigate();
 
   // calculate cart total
   const totalAmount = cartItems.reduce(
@@ -32,7 +34,8 @@ const Payment = () => {
   // Function to trigger Paystack payment
   const payWithPaystack = () => {
     // Create new pending order before payment
-    const orderId = `ORD${Math.floor(100 + Math.random() * 900)}`; // e.g. ORD123
+    const orderId = `ORD${Math.floor(100 + Math.random() * 900)}`;
+    // e.g. ORD123
     addOrder({
       id: orderId,
       date: new Date().toLocaleDateString(),
@@ -58,7 +61,8 @@ const Payment = () => {
       callback: (response) => {
         alert("Payment successful! Reference: " + response.reference);
         updateOrderStatus(orderId, "Successful");
-        clearCart(); // clear cart only if successful
+        clearCart();
+        navigate("/orderhistory");
       },
       onClose: () => {
         alert("Transaction closed");
