@@ -1,18 +1,21 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../Components/CartContext";
 import { useOrders } from "../Components/OrderContext";
 
 const Payment = () => {
   const publicKey = "pk_test_6e62a658683ffa09f2e2b90b0634febac2ec8f0b";
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const { orderId } = location.state || {}; // get orderId passed from Cart
+  const { updateOrderStatus } = useOrders();
   const { cartItems, clearCart } = useCart();
-  const { addOrder, updateOrderStatus } = useOrders();
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-  const navigate = useNavigate();
 
   // calculate cart total
   const totalAmount = cartItems.reduce(
@@ -33,21 +36,10 @@ const Payment = () => {
 
   // Function to trigger Paystack payment
   const payWithPaystack = () => {
-    // Create new pending order before payment
-    const orderId = `ORD${Math.floor(100 + Math.random() * 900)}`;
-    // e.g. ORD123
-    addOrder({
-      id: orderId,
-      date: new Date().toLocaleDateString(),
-      items: cartItems.map((i) => i.name).join(", "),
-      total: totalAmount,
-      status: "Pending",
-    });
-
     const handler = window.PaystackPop.setup({
       key: publicKey,
       email,
-      amount: totalAmount * 100, // kobo
+      amount: totalAmount * 100,
       metadata: {
         custom_fields: [
           { display_name: "Name", variable_name: "name", value: name },
@@ -58,8 +50,8 @@ const Payment = () => {
           },
         ],
       },
-      callback: (response) => {
-        alert("Payment successful! Reference: " + response.reference);
+      callback: () => {
+        alert("Payment successful!");
         updateOrderStatus(orderId, "Successful");
         clearCart();
         navigate("/orderhistory");
@@ -76,7 +68,9 @@ const Payment = () => {
     input:
       "block w-full px-4 py-2 mb-4 rounded-md border border-gray-300 focus:outline-none",
     button: `block w-full px-4 py-2 rounded-md text-white ${
-      isFormValid ? "bg-[#1369A1]" : "bg-gray-400 cursor-not-allowed"
+      isFormValid
+        ? "bg-[#1369A1] cursor-pointer"
+        : "bg-gray-400 cursor-not-allowed"
     }`,
   };
 
@@ -120,6 +114,34 @@ const Payment = () => {
         >
           Pay Now
         </button>
+
+        <Link to="/cart">
+          <div
+            className="hidden sm:flex gap-1.5 text-sm "
+            // onClick={() => {
+            //   if (orderId) {
+            //     updateOrderStatus(orderId, "Pending");
+            //   }
+            // }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="orange"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
+              />
+            </svg>
+
+            <p> Go back</p>
+          </div>
+        </Link>
       </div>
     </div>
   );

@@ -2,14 +2,33 @@ import { Link } from "react-router-dom";
 import { useCart } from "../Components/CartContext.jsx";
 import minus from "../Components/assets/images/icon-minus.svg";
 import add from "../Components/assets/images/icon-plus.svg";
+import { useOrders } from "../Components/OrderContext";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { cartItems, removeItem, updateQuantity } = useCart();
+  const { addOrder } = useOrders();
+  const navigate = useNavigate();
 
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
+  const handleCheckout = () => {
+    const orderId = `ORD${Math.floor(100 + Math.random() * 900)}`;
+
+    addOrder({
+      id: orderId,
+      date: new Date().toLocaleDateString(),
+      items: cartItems.map((i) => i.name).join(", "),
+      total: totalPrice,
+      status: "Pending", // immediately set as pending
+    });
+
+    // navigate to Payment page with this orderId
+    navigate("/payment", { state: { orderId } });
+  };
 
   return (
     <div className="max-w-[1800px] mx-auto px-4 lg:px-40">
@@ -133,11 +152,13 @@ const Cart = () => {
                     <p className="text-base sm:text-lg font-semibold">
                       Total: &#8358;{totalPrice}
                     </p>
-                    <Link to="/payment">
-                      <button className="mt-2 bg-orange-500 text-white px-4 py-2 rounded text-sm sm:text-base">
-                        Checkout
-                      </button>
-                    </Link>
+
+                    <button
+                      className="mt-2 bg-orange-500 text-white px-4 py-2 rounded text-sm sm:text-base cursor-pointer"
+                      onClick={handleCheckout}
+                    >
+                      Checkout
+                    </button>
                   </div>
                 </div>
               </div>

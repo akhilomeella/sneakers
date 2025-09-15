@@ -18,11 +18,9 @@ export const OrderProvider = ({ children }) => {
   };
 
   // Update status of an existing order
-  const updateOrderStatus = (orderId, newStatus) => {
+  const updateOrderStatus = (id, status) => {
     setOrders((prev) =>
-      prev.map((order) =>
-        order.id === orderId ? { ...order, status: newStatus } : order
-      )
+      prev.map((order) => (order.id === id ? { ...order, status } : order))
     );
   };
 
