@@ -27,7 +27,7 @@ const Item = (props) => {
       </div>
       {showModal && (
         <div
-          className="w-full fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+          className="w-full fixed inset-0 bg-black/50 flex justify-center items-center z-50"
           onClick={() => setShowModal(false)} // Close on outside click
         >
           <div

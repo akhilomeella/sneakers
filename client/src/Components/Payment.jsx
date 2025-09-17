@@ -59,6 +59,7 @@ const Payment = () => {
       onClose: () => {
         alert("Transaction closed");
         updateOrderStatus(orderId, "Cancelled");
+        navigate("/orderhistory");
       },
     });
     handler.openIframe();

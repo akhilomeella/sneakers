@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useOrders } from "../Components/OrderContext";
+import Modal from "../Components/Modal";
 
 const Orderhistory = () => {
-  const { orders } = useOrders(); // get orders from context
+  const { orders, clearOrders } = useOrders(); // get orders from context
+  const [selectedOrder, setSelectedOrder] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
+  const navigate = useNavigate();
 
   const filteredOrders = orders.filter((order) => {
     const matchesSearch = order.id
@@ -45,7 +49,26 @@ const Orderhistory = () => {
                   <option value="Cancelled">Cancelled</option>
                 </select>
               </div>
-              <div className="flex items-center w-full md:w-auto justify-end max-[320px]:justify-start">
+              <div className="flex gap-4 items-center w-full md:w-auto justify-end max-[320px]:justify-start">
+                <button
+                  onClick={() => clearOrders()}
+                  className="text-red-500 text-sm"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                    />
+                  </svg>
+                </button>
                 <input
                   type="text"
                   placeholder="Search"
@@ -81,14 +104,17 @@ const Orderhistory = () => {
                   <tbody>
                     {filteredOrders.map((order) => (
                       <tr key={order.id} className="hover:bg-gray-100">
-                        <td className="border-b text-xs md:text-[13px] sm:text-base border-gray-300 px-2 sm:px-4 py-2 sm:py-3 max-[320px]:text-[10px]">
+                        <td
+                          onClick={() => setSelectedOrder(order)}
+                          className="border-b text-xs md:text-[13px] sm:text-base underline cursor-pointer border-gray-300 px-2 sm:px-4 py-2 sm:py-3 max-[320px]:text-[10px]"
+                        >
                           {order.id}
                         </td>
                         <td className="border-b text-xs md:text-[13px] sm:text-base border-gray-300 px-2 sm:px-4 py-2 sm:py-3 max-[320px]:text-[10px]">
                           {order.date}
                         </td>
                         <td className="border-b text-xs md:text-[13px] sm:text-base border-gray-300 px-2 sm:px-4 py-2 sm:py-3 hidden sm:table-cell md:hidden">
-                          {order.items}
+                          {order.items.length}
                         </td>
                         <td className="border-b text-xs md:text-[13px] sm:text-base border-gray-300 px-2 sm:px-4 py-2 sm:py-3">
                           <span
@@ -114,6 +140,52 @@ const Orderhistory = () => {
                 <p className="text-gray-500">No orders match your search.</p>
               )}
             </div>
+            {console.log("Selected Order:", selectedOrder)}
+            <Modal
+              isOpen={!!selectedOrder}
+              onClose={() => setSelectedOrder(null)}
+              title={`Order Details - ${selectedOrder?.id}`}
+            >
+              {selectedOrder && (
+                <div>
+                  <p className="mb-2 font-medium">Date: {selectedOrder.date}</p>
+                  <p className="mb-2 font-medium">
+                    Status: {selectedOrder.status}
+                  </p>
+                  <p className="mb-2 font-medium">
+                    Total: ₦{selectedOrder.total}
+                  </p>
+
+                  <h3 className="font-semibold mt-4 mb-2">Items Ordered:</h3>
+                  <ul className="list-disc list-inside">
+                    {selectedOrder.items.map((item, index) => (
+                      <li key={index}>
+                        {item.name} – ₦{item.price} × {item.quantity} = ₦
+                        {item.price * item.quantity}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="hidden sm:flex gap-1.5 text-sm justify-end mt-4">
+                    <button
+                      onClick={() => {
+                        if (selectedOrder.status === "Pending") {
+                          navigate("/payment");
+                        }
+                      }}
+                      disabled={selectedOrder.status !== "Pending"}
+                      className={`text-white px-4 py-2 rounded text-sm sm:text-base ${
+                        selectedOrder.status === "Pending"
+                          ? "cursor-pointer bg-orange-500"
+                          : "hidden"
+                      }`}
+                    >
+                      Complete Payment
+                    </button>
+                  </div>
+                </div>
+              )}
+            </Modal>
           </div>
         </div>
       </div>

@@ -24,8 +24,14 @@ export const OrderProvider = ({ children }) => {
     );
   };
 
+  const clearOrders = () => {
+    setOrders([]);
+  };
+
   return (
-    <OrderContext.Provider value={{ orders, addOrder, updateOrderStatus }}>
+    <OrderContext.Provider
+      value={{ orders, addOrder, updateOrderStatus, clearOrders }}
+    >
       {children}
     </OrderContext.Provider>
   );

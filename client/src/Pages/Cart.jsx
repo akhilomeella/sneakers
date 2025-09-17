@@ -16,12 +16,16 @@ const Cart = () => {
   );
 
   const handleCheckout = () => {
-    const orderId = `ORD${Math.floor(100 + Math.random() * 900)}`;
+    const orderId = `ORD00${Math.floor(100 + Math.random() * 900)}`;
 
     addOrder({
       id: orderId,
       date: new Date().toLocaleDateString(),
-      items: cartItems.map((i) => i.name).join(", "),
+      items: cartItems.map((i) => ({
+        name: i.name,
+        price: i.price,
+        quantity: i.quantity,
+      })),
       total: totalPrice,
       status: "Pending", // immediately set as pending
     });
