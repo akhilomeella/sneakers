@@ -37,8 +37,8 @@ const Cart = () => {
   return (
     <div className="max-w-[1800px] mx-auto px-4 lg:px-16 ">
       <div className=" w-full pt-4">
-        <h1 className="text-2xl font-bold mb-2 text-left text-orange-500">
-          Cart
+        <h1 className="text-2xl font-bold mb-2 text-center text-orange-500">
+          Shopping Cart
         </h1>
       </div>
       <div className="flex flex-col lg:flex-row gap-10 items-center py-4 ">
@@ -149,7 +149,13 @@ const Cart = () => {
           </div>
         </div>
 
-        <aside className=" w-full lg:w-1/4 border-solid border-2 border-gray-200 rounded-lg p-6 max-h-fit flex flex-col self-start ">
+        <aside
+          className={` ${
+            cartItems.length === 0
+              ? "hidden"
+              : " w-full lg:w-1/4 border-solid border-2 border-gray-200 rounded-lg p-6 max-h-fit flex flex-col self-start"
+          } `}
+        >
           <h1 className="text-xl pb-4">Summary</h1>
           <hr className="border-gray-200 pb-4" />
 
