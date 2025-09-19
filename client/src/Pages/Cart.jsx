@@ -41,9 +41,9 @@ const Cart = () => {
           Cart
         </h1>
       </div>
-      <div className="flex flex-col lg:flex-row gap-10 justify-center py-4">
-        <div className=" w-3/4 ">
-          <div className="w-screen sm:w-full bg-white rounded px-4 ">
+      <div className="flex flex-col lg:flex-row gap-10 items-center py-4 ">
+        <div className=" w-full lg:w-3/4  ">
+          <div className=" bg-white rounded px-4  ">
             {cartItems.length > 0 ? (
               <div className="flex flex-col justify-center">
                 <table className="w-11/12 sm:w-full table-auto text-left border-none  ">
@@ -62,7 +62,7 @@ const Cart = () => {
                           <img
                             src={item.image}
                             alt={item.name}
-                            className="size-6 sm:size-8 mr-2"
+                            className="size-6 sm:size-12 mr-2"
                           />
                           {item.name}
                         </td>
@@ -77,7 +77,7 @@ const Cart = () => {
                               <img
                                 src={minus}
                                 alt="Decrease"
-                                className="w-3 "
+                                className="lg:w-3 "
                               />
                             </button>
 
@@ -105,7 +105,7 @@ const Cart = () => {
                               viewBox="0 0 24 24"
                               stroke-width="1.5"
                               stroke="currentColor"
-                              class="size-6"
+                              className="size-4 lg:size-6"
                             >
                               <path
                                 stroke-linecap="round"
@@ -149,7 +149,7 @@ const Cart = () => {
           </div>
         </div>
 
-        <aside className=" w-full lg:w-1/4 border-solid border-2 border-gray-200 rounded-lg p-6 max-h-fit  ">
+        <aside className=" w-full lg:w-1/4 border-solid border-2 border-gray-200 rounded-lg p-6 max-h-fit flex flex-col self-start ">
           <h1 className="text-xl pb-4">Summary</h1>
           <hr className="border-gray-200 pb-4" />
 
