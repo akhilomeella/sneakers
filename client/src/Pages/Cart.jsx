@@ -35,39 +35,30 @@ const Cart = () => {
   };
 
   return (
-    <div className="max-w-[1800px] mx-auto px-4 lg:px-40">
-      <div className="w-full">
-        <div className="py-10">
-          <div className="py-5 w-full bg-orange-500">
-            <h1 className="text-4xl font-bold mb-4 text-center text-white">
-              Shopping Cart
-            </h1>
-          </div>
-
-          <div className="w-screen sm:w-full bg-white rounded p-4">
+    <div className="max-w-[1800px] mx-auto px-4 lg:px-16 ">
+      <div className=" w-full pt-4">
+        <h1 className="text-2xl font-bold mb-2 text-left text-orange-500">
+          Cart
+        </h1>
+      </div>
+      <div className="flex flex-col lg:flex-row gap-10 justify-center py-4">
+        <div className=" w-3/4 ">
+          <div className="w-screen sm:w-full bg-white rounded px-4 ">
             {cartItems.length > 0 ? (
-              <div>
-                <table className="w-11/12 sm:w-full table-auto text-left border-none ">
+              <div className="flex flex-col justify-center">
+                <table className="w-11/12 sm:w-full table-auto text-left border-none  ">
                   <thead>
-                    <tr>
-                      <th className="border-b py-2 text-sm sm:text-base">
-                        Product
-                      </th>
-                      <th className="border-b py-2 text-sm sm:text-base hidden sm:block">
-                        Price
-                      </th>
-                      <th className="border-b py-2 text-sm sm:text-base">
-                        Quantity
-                      </th>
-                      <th className="border-b py-2 text-sm sm:text-base">
-                        Subtotal
-                      </th>
+                    <tr className="border-b border-gray-200  py-4">
+                      <th className=" py-2 text-sm ">Product</th>
+
+                      <th className=" py-2 text-sm ">Quantity</th>
+                      <th className=" py-2 text-sm ">Amount</th>
                     </tr>
                   </thead>
                   <tbody>
                     {cartItems.map((item) => (
-                      <tr key={item.id}>
-                        <td className="py-3 flex items-center text-sm sm:text-base">
+                      <tr key={item.id} className="border-b border-gray-200 ">
+                        <td className="py-8 flex items-center text-sm sm:text-base">
                           <img
                             src={item.image}
                             alt={item.name}
@@ -75,10 +66,8 @@ const Cart = () => {
                           />
                           {item.name}
                         </td>
-                        <td className="py-3 text-xs sm:text-base hidden sm:table-cell">
-                          &#8358;{item.price}
-                        </td>
-                        <td className="py-3">
+
+                        <td className="py-8">
                           <div className="flex bg-[#f7f8fd] justify-between p-1 sm:p-2 w-14 sm:w-24 rounded-lg text-sm">
                             <button
                               onClick={() =>
@@ -106,7 +95,7 @@ const Cart = () => {
                           </div>
                         </td>
                         <td className="py-2 text-sm sm:text-base">
-                          &#8358;{item.price * item.quantity}
+                          &#8358;{(item.price * item.quantity).toLocaleString()}
                         </td>
                         <td className="py-2">
                           <button onClick={() => removeItem(item.id)}>
@@ -152,18 +141,6 @@ const Cart = () => {
                       <p> Continue Shopping</p>
                     </div>
                   </Link>
-                  <div>
-                    <p className="text-base sm:text-lg font-semibold">
-                      Total: &#8358;{totalPrice}
-                    </p>
-
-                    <button
-                      className="mt-2 bg-orange-500 text-white px-4 py-2 rounded text-sm sm:text-base cursor-pointer"
-                      onClick={handleCheckout}
-                    >
-                      Checkout
-                    </button>
-                  </div>
                 </div>
               </div>
             ) : (
@@ -171,6 +148,43 @@ const Cart = () => {
             )}
           </div>
         </div>
+
+        <aside className=" w-full lg:w-1/4 border-solid border-2 border-gray-200 rounded-lg p-6 max-h-fit  ">
+          <h1 className="text-xl pb-4">Summary</h1>
+          <hr className="border-gray-200 pb-4" />
+
+          <div className="pb-4 ">
+            <p className="flex justify-between py-2">
+              <span>Subtotal</span>
+              <span>&#8358;{totalPrice.toLocaleString()}</span>
+            </p>
+            <p className="flex justify-between py-2">
+              <span>Shipping Cost</span>
+              <span>ertyuio</span>
+            </p>
+            <p className="flex justify-between py-2">
+              <span>VAT</span>
+              <span>ertyuio</span>
+            </p>
+          </div>
+          <hr className="border-gray-200 pb-4" />
+          <hr className="mt-20 pb-3 border-gray-200" />
+          <div>
+            <p className="flex justify-between py-2">
+              <span>Total</span>
+              <span>&#8358;{totalPrice.toLocaleString()}</span>
+            </p>
+          </div>
+
+          <div>
+            <button
+              className="w-full mt-2 bg-orange-500 text-white px-4 py-2 rounded text-sm sm:text-base cursor-pointer"
+              onClick={handleCheckout}
+            >
+              Checkout
+            </button>
+          </div>
+        </aside>
       </div>
     </div>
   );
