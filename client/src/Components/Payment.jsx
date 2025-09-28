@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useCart } from "../Components/CartContext";
-import { useOrders } from "../Components/OrderContext";
+import { useCart } from "./Contexts/CartContext";
+import { useOrders } from "./Contexts/OrderContext";
 
 const Payment = () => {
   const publicKey = "pk_test_6e62a658683ffa09f2e2b90b0634febac2ec8f0b";
@@ -54,12 +54,12 @@ const Payment = () => {
         alert("Payment successful!");
         updateOrderStatus(orderId, "Successful");
         clearCart();
-        navigate("/orderhistory");
+        navigate("/account");
       },
       onClose: () => {
         alert("Transaction closed");
         updateOrderStatus(orderId, "Cancelled");
-        navigate("/orderhistory");
+        navigate("/account");
       },
     });
     handler.openIframe();
@@ -105,7 +105,7 @@ const Payment = () => {
         />
 
         <p className="mb-2 text-center font-semibold">
-          Total Amount: &#8358;{totalAmount}
+          Total Amount: &#8358;{totalAmount.toLocaleString()}
         </p>
 
         <button
