@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import ScrollToTop from "./Components/ScrollToTop";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 function App() {
   return (
@@ -28,12 +29,25 @@ function App() {
 
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/cart" element={<Cart />} />
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRoute>
+                    <Cart />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/payment" element={<Payment />} />
-              <Route path="/orderhistory" element={<Orderhistory />} />
 
               <Route path="/contact" element={<Contact />} />
-              <Route path="/account" element={<Account />} />
+              <Route
+                path="/account"
+                element={
+                  <ProtectedRoute>
+                    <Account />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
 
