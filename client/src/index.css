@@ -31,7 +31,7 @@ body {
 body::after {
   content: "";
   display: block;
-  height: 50px;
+  height: 0px;
   /* Set same as footer's height */
 }
 
