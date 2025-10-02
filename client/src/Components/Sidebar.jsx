@@ -8,7 +8,7 @@ import { useAuth } from "./Contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ activeSection, onNavigate }) => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
 
   const menuItems = [
@@ -28,7 +28,7 @@ const Sidebar = ({ activeSection, onNavigate }) => {
       <aside className="w-64 border-b-0 h-screen bg-white shadow-md rounded-2xl p-6 flex flex-col items-center">
         {/* Profile Section */}
         <div className="flex flex-col items-center mb-6">
-          <h2 className="mt-3 text-lg font-semibold">Ashraf Hossain</h2>
+          <h2 className="mt-3 text-lg font-semibold">{user}</h2>
         </div>
 
         {/* Menu Section */}
