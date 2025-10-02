@@ -1,21 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Components/Contexts/AuthContext.jsx";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login, isLoggedIn } = useAuth();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/account");
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleLogin = (e) => {
     e.preventDefault();
     axios
       .post("http://localhost:3000/login", { email, password })
       .then((result) => {
-        alert(result.data);
         if (result.data === "Success") {
-          navigate("/cart");
+          login(email);
         }
       })
       .catch((err) => console.log(err));

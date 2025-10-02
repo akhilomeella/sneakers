@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCart } from "./CartContext";
+import { useCart } from "./Contexts/CartContext";
 import sneakers from "./data";
 import minus from "./assets/images/icon-minus.svg";
 import add from "./assets/images/icon-plus.svg";

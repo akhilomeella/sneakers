@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useOrders } from "../Components/OrderContext";
+import { useOrders } from "../Components/Contexts/OrderContext";
 import Modal from "../Components/Modal";
 
 const Orderhistory = () => {
-  const { orders, clearOrders } = useOrders(); // get orders from context
+  const { orders, clearOrders } = useOrders();
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
@@ -21,8 +21,8 @@ const Orderhistory = () => {
 
   return (
     <div>
-      <div className="w-full p-6 mt-4 mb-36">
-        <div className=" rounded-lg shadow">
+      <div className="w-full pt-4 ">
+        <div>
           <div className="px-6 py-4 border-b border-gray-200">
             <h1 className="text-2xl sm:text-4xl font-bold text-center text-orange-500">
               Order History
@@ -130,7 +130,7 @@ const Orderhistory = () => {
                           </span>
                         </td>
                         <td className="border-b text-xs md:text-[13px] sm:text-base border-gray-300 px-2 sm:px-4 py-2 sm:py-3  max-[320px]:hidden">
-                          &#8358;{order.total}
+                          &#8358;{order.total.toLocaleString()}
                         </td>
                       </tr>
                     ))}
@@ -153,15 +153,14 @@ const Orderhistory = () => {
                     Status: {selectedOrder.status}
                   </p>
                   <p className="mb-2 font-medium">
-                    Total: ₦{selectedOrder.total}
+                    Total: ₦{selectedOrder.total.toLocaleString()}
                   </p>
 
                   <h3 className="font-semibold mt-4 mb-2">Items Ordered:</h3>
                   <ul className="list-disc list-inside">
                     {selectedOrder.items.map((item, index) => (
                       <li key={index}>
-                        {item.name} – ₦{item.price} × {item.quantity} = ₦
-                        {item.price * item.quantity}
+                        {item.name} – ₦{item.price.toLocaleString()}
                       </li>
                     ))}
                   </ul>
@@ -170,7 +169,12 @@ const Orderhistory = () => {
                     <button
                       onClick={() => {
                         if (selectedOrder.status === "Pending") {
-                          navigate("/payment");
+                          navigate("/payment", {
+                            state: {
+                              orderId: selectedOrder.id,
+                              orderTotal: selectedOrder.total,
+                            },
+                          });
                         }
                       }}
                       disabled={selectedOrder.status !== "Pending"}

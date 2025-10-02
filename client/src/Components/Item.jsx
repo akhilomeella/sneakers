@@ -18,7 +18,7 @@ const Item = (props) => {
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-3 text-center sm:text-left">
         <p className="text-sm sm:text-base">{props.name}</p>
         <div className="font-bold text-base sm:text-lg">
-          &#8358;{props.price}
+          &#8358;{props.price.toLocaleString()}
         </div>
       </div>
 

@@ -55,13 +55,13 @@ const Home = () => {
 
           <div className="flex flex-col gap-y-1">
             <div className="flex gap-x-2 items-center">
-              <p className="text-xl sm:text-2xl font-bold">&#8358;23000</p>
+              <p className="text-xl sm:text-2xl font-bold">&#8358;23,000</p>
               <div className="flex items-center bg-[#f8e3d2] text-[#f67d1c] rounded ">
                 <p className="px-2 font-bold text-sm sm:text-base">50%</p>
               </div>
             </div>
             <p className="line-through text-[#666970] font-bold text-sm sm:text-base">
-              &#8358;46000
+              &#8358;46,000
             </p>
           </div>
 

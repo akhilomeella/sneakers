@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useCart } from "../Components/CartContext.jsx";
+import { useCart } from "../Components/Contexts/CartContext.jsx";
 import minus from "../Components/assets/images/icon-minus.svg";
 import add from "../Components/assets/images/icon-plus.svg";
-import { useOrders } from "../Components/OrderContext";
+import { useOrders } from "../Components/Contexts/OrderContext.jsx";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {

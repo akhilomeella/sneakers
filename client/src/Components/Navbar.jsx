@@ -4,7 +4,7 @@ import cart from "./assets/images/icon-cart.svg";
 import dp from "./assets/images/image-avatar.png";
 import "./assets/navbar.css";
 import { HiMenu, HiX } from "react-icons/hi";
-import { useCart } from "./CartContext.jsx";
+import { useCart } from "./Contexts/CartContext.jsx";
 
 const Navbar = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -120,7 +120,7 @@ const Navbar = () => {
               </div>
             </Link>
 
-            <Link to="/orderhistory" className="hidden sm:block">
+            <Link to="/account" className="hidden sm:block">
               <img src={dp} alt="" className="size-10 rounded-full" />
             </Link>
           </div>
@@ -173,7 +173,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/account"
-              className="block hover:text-black"
+              className="block hover:text-black flex self-center"
               onClick={() => setIsMenuOpen(false)}
             >
               Account

@@ -9,7 +9,7 @@ const Payment = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { orderId } = location.state || {}; // get orderId passed from Cart
+  const { orderId, orderTotal } = location.state || {}; // get orderId passed from Cart
   const { updateOrderStatus } = useOrders();
   const { cartItems, clearCart } = useCart();
 
@@ -18,10 +18,9 @@ const Payment = () => {
   const [number, setNumber] = useState("");
 
   // calculate cart total
-  const totalAmount = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  const totalAmount = orderTotal
+    ? orderTotal
+    : cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   // Load Paystack script
   useEffect(() => {
