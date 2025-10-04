@@ -12,7 +12,7 @@ const Signup = () => {
   const handleSignup = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/signup", { name, email, password })
+      .post("http://192.168.0.135:3000/signup", { name, email, password })
       .then((result) => {
         alert(result.data);
         navigate("/login");
