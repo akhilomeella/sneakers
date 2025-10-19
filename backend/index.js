@@ -41,5 +41,5 @@ app.post("/signup", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log("servr is running");
+  console.log(`servr is running on port ${PORT}`);
 });
