@@ -19,7 +19,10 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/login", { email, password })
+      .post("https://sneakers-backend.up.railway.app/login", {
+        email,
+        password,
+      })
       .then((result) => {
         if (result.data === "Success") {
           login(email);
