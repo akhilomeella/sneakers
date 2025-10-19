@@ -19,7 +19,7 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post("http://192.168.0.135:3000/login", { email, password })
+      .post("http://localhost:3000/login", { email, password })
       .then((result) => {
         if (result.data === "Success") {
           login(email);

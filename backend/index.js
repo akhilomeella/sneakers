@@ -38,6 +38,7 @@ app.post("/signup", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-app.listen(3000, "0.0.0.0", () => {
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
   console.log("servr is running");
 });

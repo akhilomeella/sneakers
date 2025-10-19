@@ -120,7 +120,7 @@ const Navbar = () => {
               </div>
             </Link>
 
-            <Link to="/account" className="hidden sm:block">
+            <Link to="/login" className="hidden sm:block">
               <img src={dp} alt="" className="size-10 rounded-full" />
             </Link>
           </div>
@@ -172,7 +172,7 @@ const Navbar = () => {
               Contact
             </Link>
             <Link
-              to="/account"
+              to="/login"
               className="block hover:text-black flex self-center"
               onClick={() => setIsMenuOpen(false)}
             >
