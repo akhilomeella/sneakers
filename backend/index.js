@@ -7,7 +7,7 @@ const dotenv = require("dotenv").config();
 const app = express();
 app.use(
   cors({
-    origin: "https://ell-sneakers.vercel.app",
+    origin: ["https://ell-sneakers.vercel.app", "http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
