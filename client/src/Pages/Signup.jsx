@@ -12,7 +12,11 @@ const Signup = () => {
   const handleSignup = (e) => {
     e.preventDefault();
     axios
-      .post("http://192.168.0.135:3000/signup", { name, email, password })
+      .post("https://sneakers-loke.onrender.com/signup", {
+        name,
+        email,
+        password,
+      })
       .then((result) => {
         alert(result.data);
         navigate("/login");
