@@ -56,7 +56,7 @@ app.post("/signup", async (req, res) => {
     const user = await sneakerModel.create({
       name,
       email,
-      password: hash_password,
+      hash_password,
     });
 
     res.json(user);
