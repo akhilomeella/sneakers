@@ -41,27 +41,12 @@ app.post("/login", async (req, res) => {
 
 app.post("/signup", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const userExist = await sneakerModel.findOne({ email: req.body.email });
+    if (userExist) return res.json("User already exists");
 
-    // Check if user exists
-    const userExist = await sneakerModel.findOne({ email });
-    if (userExist) {
-      return res.json("User already exists");
-    }
-
-    // Hash password manually
-    const hash_password = await bcrypt.hash(password, 10);
-
-    // Create user
-    const user = await sneakerModel.create({
-      name,
-      email,
-      hash_password,
-    });
-
-    res.json(user);
+    const user = await sneakerModel.create(req.body);
+    res.json("Signup successful");
   } catch (err) {
-    console.log(err);
     res.json(err);
   }
 });
