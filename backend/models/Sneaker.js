@@ -17,13 +17,5 @@ const sneakerSchema = new mongoose.Schema({
   },
 });
 
-sneakerSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-
-  this.password = await bcrypt.hash(this.password, 10);
-
-  next();
-});
-
 const sneakerModel = mongoose.model("register", sneakerSchema);
 module.exports = sneakerModel;
