@@ -50,8 +50,7 @@ app.post("/signup", async (req, res) => {
     }
 
     // Hash password manually
-    const salt = await bcrypt.genSalt();
-    const hash_password = await bcrypt.hash(password, salt);
+    const hash_password = await bcrypt.hash(password, 10);
 
     // Create user
     const user = await sneakerModel.create({
