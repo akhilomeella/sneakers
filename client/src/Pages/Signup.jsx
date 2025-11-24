@@ -9,19 +9,19 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    axios
-      .post("https://sneakers-loke.onrender.com/signup", {
+    try {
+      await axios.post("https://sneakers-loke.onrender.com/signup", {
         name,
         email,
         password,
-      })
-      .then((result) => {
-        alert(result.data);
-        navigate("/login");
-      })
-      .catch((err) => console.log(err));
+      });
+      alert("successfully signed up! Please log in.");
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
