@@ -16,19 +16,24 @@ const Login = () => {
     }
   }, [isLoggedIn, navigate]);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    axios
-      .post("https://sneakers-loke.onrender.com/login", {
-        email,
-        password,
-      })
-      .then((result) => {
-        if (result.data === "Success") {
-          login(email);
+    try {
+      const response = await axios.post(
+        "https://sneakers-loke.onrender.com/login",
+        {
+          email,
+          password,
         }
-      })
-      .catch((err) => console.log(err));
+      );
+
+      if (response.data === "Success") {
+        login(email);
+        alert("successfully logged in");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
