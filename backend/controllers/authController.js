@@ -1,5 +1,6 @@
 const sneakerModel = require("../models/Sneaker");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const signup = async (req, res) => {
   try {
@@ -42,7 +43,13 @@ const login = async (req, res) => {
       return res.status(400).json("Incorrect password or username");
     }
 
-    res.json("Success");
+    const payload = { id: user._id, email: user.email };
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "15m",
+    });
+
+    res.json({ token });
   } catch (err) {
     res.status(500).json(err);
   }
