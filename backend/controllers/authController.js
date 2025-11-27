@@ -1,4 +1,4 @@
-const sneakerModel = require("./models/Sneaker");
+const sneakerModel = require("../models/Sneaker");
 const bcrypt = require("bcrypt");
 
 const signup = async (req, res) => {
