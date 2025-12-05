@@ -45,11 +45,25 @@ const login = async (req, res) => {
 
     const payload = { id: user._id, email: user.email };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    //Create access token
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "15m",
     });
 
-    res.json({ token });
+    //Create refresh token
+    const refreshToken = jwt.sign(payload.id, process.env.REFRESH_SECRET, {
+      expiresIn: "7d",
+    });
+
+    //HTTP-only cookies for secure storage of refresh token
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.json({ accessToken });
   } catch (err) {
     res.status(500).json(err);
   }
