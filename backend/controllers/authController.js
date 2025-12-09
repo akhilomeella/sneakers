@@ -1,4 +1,4 @@
-const sneakerModel = require("../models/Sneaker");
+const userModel = require("../models/Sneaker");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -7,7 +7,7 @@ const signup = async (req, res) => {
     const { name, email, password } = req.body;
 
     // Check if user exists
-    const userExist = await sneakerModel.findOne({ email });
+    const userExist = await userModel.findOne({ email });
     if (userExist) {
       return res.status(400).json("User already exists");
     }
@@ -16,7 +16,7 @@ const signup = async (req, res) => {
     const hash_password = await bcrypt.hash(password, 10);
 
     // Create user
-    const user = await sneakerModel.create({
+    const user = await userModel.create({
       name,
       email,
       password: hash_password,
@@ -32,7 +32,7 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await sneakerModel.findOne({ email });
+    const user = await userModel.findOne({ email });
     if (!user) {
       return res.status(400).json("Record does not exist");
     }
@@ -68,5 +68,7 @@ const login = async (req, res) => {
     res.status(500).json(err);
   }
 };
+
+const refresh = async (req, res) => {};
 
 module.exports = { signup, login };
