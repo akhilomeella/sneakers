@@ -1,20 +1,32 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
-  name: String,
-  email: {
+const sneakerSchema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true },
+  brand: { type: String, required: true },
+  price: { type: Number, required: true },
+  description: { type: String, required: true },
+  category: {
     type: String,
-    required: [true, "Please enter an email"],
-    unique: true,
-    lowercase: true,
-    validate: [/.+@.+\..+/, "Please enter a valid email"],
+    required: [true, "Category is required"],
+    enum: ["Men", "Women"],
   },
-  password: {
+
+  sizes: [
+    {
+      size: { type: Number, required: true },
+      stock: { type: Number, default: 0 },
+    },
+  ],
+
+  // The first image uploaded acts as the "Cover Photo"
+  mainImage: {
     type: String,
-    required: [true, "Please enter a password"],
-    minlength: [8, "Password must be at least 8 characters long"],
+    required: true,
   },
+  // We store ALL uploaded images here (including the main one)
+  images: [String],
+
+  createdAt: { type: Date, default: Date.now },
 });
 
-const userModel = mongoose.model("register", userSchema);
-module.exports = userModel;
+module.exports = mongoose.model("Sneaker", sneakerSchema);
