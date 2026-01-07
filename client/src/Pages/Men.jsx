@@ -1,11 +1,37 @@
-import sneakers from "../Components/data";
+import { useState, useEffect } from "react";
 import Item from "../Components/Item";
 import { motion } from "framer-motion";
 import menBanner from "../Components/assets/images/men-banner.webp";
 
 const Men = () => {
-  const items = sneakers;
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // 2. Fetch data on component mount
+  useEffect(() => {
+    const fetchSneakers = async () => {
+      try {
+        // Fetch ONLY Men's sneakers using the query param we built earlier
+        const response = await fetch(
+          "http://localhost:3000/api/v1/products/sneakers?category=Men"
+        );
+        const data = await response.json();
+
+        // Update state with the database data
+        setItems(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching sneakers:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchSneakers();
+  }, []); // Empty dependency array = run once on load
+
+  if (loading) {
+    return <div className="text-center py-20">Loading Men's Collection...</div>;
+  }
   return (
     <div>
       <div
@@ -23,21 +49,17 @@ const Men = () => {
       </div>
 
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 sm:gap-8 px-6 sm:px-12 md:px-24 lg:px-36">
-        {items.map((item, i) => {
-          if (item.category === "Men") {
-            return (
-              <Item
-                key={i}
-                id={item.id}
-                name={item.name}
-                image={item.image}
-                images={item.images}
-                price={item.price}
-                description={item.description}
-              />
-            );
-          }
-        })}
+        {items.map((item) => (
+          <Item
+            key={item._id} // MongoDB uses _id, not id
+            id={item._id}
+            name={item.name}
+            image={item.mainImage}
+            images={item.images}
+            price={item.price}
+            description={item.description}
+          />
+        ))}
       </div>
     </div>
   );
