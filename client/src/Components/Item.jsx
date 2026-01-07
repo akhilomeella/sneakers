@@ -7,6 +7,16 @@ import "./assets/customStyles.css";
 const Item = (props) => {
   const [showModal, setShowModal] = useState(false);
 
+  // --- TRANSFORM DATA FOR GALLERY ---
+  // MongoDB gives: ["url1", "url2"]
+  // Gallery needs: [{ original: "url1", thumbnail: "url1" }, ...]
+  const galleryImages = props.images
+    ? props.images.map((url) => ({
+        original: url,
+        thumbnail: url.replace("/upload/", "/upload/w_200/"), // Cloudinary thumbnail trick
+      }))
+    : [];
+
   return (
     <div className="flex flex-col justify-between h-full bg-white rounded-lg shadow-sm p-3">
       <img
@@ -34,7 +44,7 @@ const Item = (props) => {
             className="bg-white p-6 rounded-lg max-w-md w-full"
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
           >
-            <ImageGallery items={props.images} />
+            <ImageGallery items={galleryImages} showPlayButton={false} />
             <h2 className="text-xl font-bold mt-4">{props.name}</h2>
             <p className="mt-2 text-gray-500">&#8358;{props.price}</p>
             <p className="mt-4 text-sm">{props.description}</p>
