@@ -51,7 +51,7 @@ const Women = () => {
         </motion.h1>
       </div>
 
-      <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-12 lg:px-36">
+      <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-12 lg:px-36 pb-20">
         {items.map((item) => (
           <Item
             key={item._id} // MongoDB uses _id, not id
