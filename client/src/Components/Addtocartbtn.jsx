@@ -1,29 +1,23 @@
 import { useState } from "react";
 import { useCart } from "./Contexts/CartContext";
-import sneakers from "./data";
 import minus from "./assets/images/icon-minus.svg";
 import add from "./assets/images/icon-plus.svg";
 
-const Addtocart = ({ productId, size = "default" }) => {
-  const products = sneakers;
-
+const Addtocart = ({ productId, name, price, image, size = "default" }) => {
   const { addItem } = useCart();
   const [value, setValue] = useState(0);
   const [showMessage, setShowMessage] = useState(false);
-
-  // Get the product details directly from data.js
-  const product = products.find((p) => p.id === productId);
 
   const addition = () => setValue(value + 1);
   const subtract = () => value > 0 && setValue(value - 1);
 
   const handleAddtoCart = () => {
-    if (value === 0 || !product) return;
+    if (value === 0) return;
     addItem({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.image,
+      id: productId,
+      name: name,
+      price: price,
+      image: image,
       quantity: value,
     });
     setValue(0);
