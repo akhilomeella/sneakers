@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
-const routes = require("./routes/authRoute");
+const authRouter = require("./routes/authRoute");
+const productRouter = require("./routes/productRoute");
 
 connectDB();
 
@@ -16,7 +17,9 @@ app.use(
 
 app.use(express.json());
 
-app.use("/api/v1/auth", routes);
+app.use("/api/v1/auth", authRouter);
+
+app.use("/api/v1/products", productRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
