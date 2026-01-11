@@ -33,7 +33,13 @@ const Item = (props) => {
       </div>
 
       <div className="mt-auto w-full">
-        <Addtocart productId={props.id} size="small" />
+        <Addtocart
+          productId={props.id}
+          name={props.name}
+          price={props.price}
+          image={props.image}
+          size="small"
+        />
       </div>
       {showModal && (
         <div
